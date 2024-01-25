@@ -17,5 +17,5 @@ private_key_bytes = private_key.private_bytes(
 )
 
 # Display or use the keys as needed
-print("X25519 Public Key:", public_key_bytes.hex())
-print("X25519 Private Key:", private_key_bytes.hex())
+print("Encryption Public Key:", public_key_bytes.hex())
+print("Encryption Private Key:", private_key_bytes.hex())
