@@ -19,7 +19,8 @@ private_key_bytes = private_key.private_bytes(
 
 # Step 3: Encode Public Key (optional, if base64 encoding is needed)
 public_key_base64 = base64.b64encode(public_key_bytes).decode('utf-8')
+private_key_base64 = base64.b64encode(private_key_bytes).decode('utf-8')
 
 # Display or use the keys as needed
 print("Signing Public Key:", public_key_base64)
-print("Signing Private Key:", base64.b64encode(private_key_bytes).decode('utf-8'))
+print("Signing Private Key:", private_key_base64)
