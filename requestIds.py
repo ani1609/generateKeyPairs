@@ -1,26 +1,24 @@
-from nacl import encoding, signing
 import uuid
+import hmac
+import hashlib
 import base64
 
-def sign_message(signing_string, private_key):
-    # Decode the base64-encoded private key
-    private_key_bytes = base64.b64decode(private_key)
-
-    # Create a signing key from the private key
-    signing_key = signing.SigningKey(private_key_bytes)
-
-    # Sign the message
-    signed_message = signing_key.sign(signing_string.encode())
-
-    # Convert the signature to base64
-    signature_base64 = base64.b64encode(signed_message.signature).decode()
-
-    return signature_base64
-
-# Example usage:
-private_key_base64 = "pW64Crr8FuDkhY0qO5miDHC2XNXDgoYoFU2GG0T6r3k="
+# Generate a unique request ID
 unique_request_id = str(uuid.uuid4())
 
-signature = sign_message(unique_request_id, private_key_base64)
-print("Unique Request ID:", unique_request_id)
-print("Signed Unique Request ID:", signature)
+# Your secret key
+secret_key = b'XSm+qnpEbIK8FAPQ+sOR+2tVBaJbYzlx4YKOhyK9aOUm0KXROz5ypgImw2g+C3wkVBlRthy3ZacbGW/ZjN6KRA=='
+
+# Encode the unique request ID as bytes
+message = unique_request_id.encode('utf-8')
+
+# Generate the HMAC-SHA256 signature
+signature = hmac.new(secret_key, message, hashlib.sha256).digest()
+
+# Base64 encode the signature
+signature_base64 = base64.b64encode(signature).decode('utf-8')
+
+# Print
+print(f"Unique Request ID: {unique_request_id}")
+signed_unique_request_id = f"{unique_request_id}.{signature_base64}"
+print(f"Signed Unique Request ID: {signed_unique_request_id}")
