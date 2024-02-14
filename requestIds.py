@@ -1,24 +1,15 @@
 import uuid
-import hmac
-import hashlib
-import base64
+from datetime import datetime, timezone
 
-# Generate a unique request ID
-unique_request_id = str(uuid.uuid4())
+# Generate a UUID
+request_id = str(uuid.uuid4())
 
-# Your secret key
-secret_key = b'XSm+qnpEbIK8FAPQ+sOR+2tVBaJbYzlx4YKOhyK9aOUm0KXROz5ypgImw2g+C3wkVBlRthy3ZacbGW/ZjN6KRA=='
+# Get the current UTC time
+utc_time = datetime.now(timezone.utc)
 
-# Encode the unique request ID as bytes
-message = unique_request_id.encode('utf-8')
+# Format the time as a string in the specified format
+formatted_utc_time = utc_time.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-# Generate the HMAC-SHA256 signature
-signature = hmac.new(secret_key, message, hashlib.sha256).digest()
-
-# Base64 encode the signature
-signature_base64 = base64.b64encode(signature).decode('utf-8')
-
-# Print
-print(f"Unique Request ID: {unique_request_id}")
-signed_unique_request_id = f"{unique_request_id}.{signature_base64}"
-print(f"Signed Unique Request ID: {signed_unique_request_id}")
+# Print the request_id and the timestamp in the specified format
+print(f"Request ID: {request_id}")
+print(f"Timestamp (UTC): {formatted_utc_time}")
