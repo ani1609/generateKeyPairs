@@ -8,7 +8,7 @@ request_id = str(uuid.uuid4())
 utc_time = datetime.now(timezone.utc)
 
 # Format the time as a string in the specified format
-formatted_utc_time = utc_time.strftime("%Y-%m-%dT%H:%M:%SZ")
+formatted_utc_time = utc_time.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
 # Print the request_id and the timestamp in the specified format
 print(f"Request ID: {request_id}")
